@@ -25,6 +25,10 @@ upper = {'red':(186,255,255), 'green':(86,255,255), 'blue':(117,255,255), 'yello
 # define standard colors for circle around the object
 colors = {'red':(0,0,255), 'green':(0,255,0), 'blue':(255,0,0), 'yellow':(0, 255, 217), 'orange':(0,140,255)}
  
+i = 0
+draw_history = {
+
+}
 #pts = deque(maxlen=args["buffer"])
  
 # if a video path was not supplied, grab the reference
@@ -38,6 +42,7 @@ else:
     camera = cv2.VideoCapture(args["video"])
 # keep looping
 while True:
+
     # grab the current frame
     (grabbed, frame) = camera.read()
     # if we are viewing a video and we did not grab a frame,
@@ -55,7 +60,7 @@ while True:
     # color space
     frame = imutils.resize(frame, width=600)
     # flip the current frame
-    frame = vertical_img = cv2.flip( frame, 1 )
+    frame = cv2.flip( frame, 1 )
  
     blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
@@ -86,13 +91,19 @@ while True:
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
        
             # only proceed if the radius meets a minimum size. Correct this value for your obect's size
-            if radius > 0.5:
+            if radius > 25:
                 # draw the circle and centroid on the frame,
                 # then update the list of tracked points
-                cv2.circle(frame, (int(x), int(y)), int(radius), colors[key], 2)
+                
+                i += 1
+
+                draw_history[i] = x, y
                 cv2.putText(frame,key + " ball", (int(x-radius),int(y-radius)), cv2.FONT_HERSHEY_SIMPLEX, 0.6,colors[key],2)
  
-     
+
+    for item in draw_history:
+        cv2.circle(frame, (int(draw_history[item][0]), int(draw_history[item][1])), int(1), colors[key], 2)
+
     # show the frame to our screen
     cv2.imshow("Frame", frame)
    
@@ -100,7 +111,9 @@ while True:
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
         break
- 
+    if key == ord("r"):
+        draw_history = {}
+
 # cleanup the camera and close any open windows
 camera.release()
 cv2.destroyAllWindows()
