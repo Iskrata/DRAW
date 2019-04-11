@@ -34,7 +34,8 @@ draw_history = {
 # if a video path was not supplied, grab the reference
 # to the webcam
 if not args.get("video", False):
-    camera = cv2.VideoCapture(0)
+    camera=[]
+    camera.append(cv2.VideoCapture(args["video"]))
    
  
 # otherwise, grab a reference to the video file
@@ -98,11 +99,11 @@ while True:
                 i += 1
 
                 draw_history[i] = x, y
-                cv2.putText(frame,key + " ball", (int(x-radius),int(y-radius)), cv2.FONT_HERSHEY_SIMPLEX, 0.6,colors[key],2)
+                # cv2.putText(frame,key + " ball", (int(x-radius),int(y-radius)), cv2.FONT_HERSHEY_SIMPLEX, 0.6,colors[key],2)
  
 
     for item in draw_history:
-        cv2.circle(frame, (int(draw_history[item][0]), int(draw_history[item][1])), int(1), colors[key], 2)
+        cv2.circle(frame, (int(draw_history[item][0]), int(draw_history[item][1])), 1, colors['red'], 2)
 
     # show the frame to our screen
     cv2.imshow("Frame", frame)
