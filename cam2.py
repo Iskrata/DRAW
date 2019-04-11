@@ -1,12 +1,4 @@
-# predi puskane otvarqsh control panel i pishesh:
-# pip install opencv-python
-# pip install Umat
-#pip install imutils
-#zaz Umat sigurno shte kaje che lipsva neshto i za vsqko edno posle pishesh
-# pip install ...
-#... - tova koeto e kazano che lipsva
-# moje da probvash dali shte trugna bez Umat i ako trugne moje da ne se svalq
-#!!Ako se otvarq s Idle da e otvoren SAMO 1 file shtoto inache dava nqkakva greshka
+from __future__ import print_function
 from collections import deque
 import numpy as np
 import argparse
@@ -14,33 +6,23 @@ import imutils
 import cv2
 import urllib
 
+
 lower = {'red':(166, 84, 141), 'green':(66, 122, 129), 'blue':(97, 100, 117), 'yellow':(23, 59, 119), 'orange':(0, 50, 80)} #assign new item lower['blue'] = (93, 10, 0)
 upper = {'red':(186,255,255), 'green':(86,255,255), 'blue':(117,255,255), 'yellow':(54,255,255), 'orange':(20,255,255)}
  
-# define standard colors for circle around the object
-colors = {'red':(0,0,255), 'green':(0,255,0), 'blue':(255,0,0), 'yellow':(0, 255, 217), 'orange':(0,140,255)}
- 
+
+colors = {'red':(0,0,255), 'green':(0,255,0), 'blue':(255,0,0), 'yellow':(0, 255, 217), 'orange':(0,140,255)} 
 number_dots = 0
-
-draw_history = {
-
-}
-
+draw_history = {}
 cam=[]
-br=int(input("nqnq: "))
-while br>5:
+br=int(input("Number of players: "))
+while br>2:
     print("The number of players is too big!")
-    br=int(input("nqnq: "))
-    
-    
+    br=int(input("Number of players: "))
 
-
-#masiv ot prazni prozorci 
 cam.append(cv2.VideoCapture(0))
 
 while True:
-    #chete kakvo ima na kamerata i go slaga v promenliva
-    #!ako se mahne rval ne raboti! ne znam zashto
     rval, frame = cam[0].read()
     blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
@@ -60,8 +42,7 @@ while True:
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
         
-            if radius > 25:
-                
+            if radius > 25: 
                 number_dots += 1
                 draw_history[number_dots] = x, y
     
@@ -70,16 +51,20 @@ while True:
 
 
     for i in range(br):
-        #ot i pravi string
         a=str(i+1)
-        #pokazva frame-a
-        frame = cv2.flip( frame, 1 )
-        cv2.imshow('nqnq'+a, frame)
-
-    if cv2.waitKey(10) == 27: #izliza ot cikula pri natiskane na esc
+        frame = cv2.flip(frame, 1)
+        alpha=0.5
+        overlay = frame.copy()
+        output= frame.copy()
+        cv2.rectangle(overlay, (420, 205), (595, 385),(0, 0, 255), -1)
+        cv2.addWeighted(overlay, alpha, output, 0.5, 0, output)
+        cv2.imshow('Player'+a, output)
+        
+    if cv2.waitKey(10) == 27:
+        cv2.destroyAllWindows()
         break
-#zatvarq vsichki prozorci
 
 
-#vika funkciqta kato kazva che e mirrored ekrana i tq go pravi da ne e mirrored
-# show_webcam(mirror=True, number_dots)
+
+
+
