@@ -14,6 +14,7 @@ colors = {'blue':(255,0,0)}
 
 number_dots = 0
 draw_history = {}
+draw_history2 = {}
 #br=int(input("Number of players: "))
 
 #while br>2:
@@ -47,11 +48,15 @@ while True:
             
             if radius > 25: 
                 number_dots += 1
-                draw_history[number_dots] = x, y
+                if pl==1:
+                    draw_history[number_dots] = x, y
+                else:
+                    draw_history2[number_dots] = x, y
         
     for item in draw_history:
-        cv2.circle(frame, (int(draw_history[item][0]), int(draw_history[item][1])), 1, colors["red"], 2)
-
+        cv2.circle(frame, (int(draw_history[item][0]), int(draw_history[item][1])), 1, colors["blue"], 2)
+    for item in draw_history2:
+        cv2.circle(frame, (int(draw_history2[item][0]), int(draw_history2[item][1])), 1, colors["blue"], 2)
 
     alpha=0.5
     overlay = frame.copy()
@@ -74,6 +79,7 @@ while True:
         if pl==1:
             pl=2
             print("Player 2")
+            number_dots=0
         else:
             finish()
             break
