@@ -1,4 +1,3 @@
-
 from __future__ import print_function
 from collections import deque
 import numpy as np
@@ -119,11 +118,13 @@ while True:
             
             img = cv2.flip(img, 1)
             cv2.imshow('Results',img)
-            cv2.waitKey(0)
+            cv2.waitKey(1)
+            time.sleep(9)
+            cv2.destroyAllWindows()
             result=int(input("Your vote[1 or 2]: "))
-            #cv2.destroyAllWindows()
+            
            
-            print(result)
+            #print(result)
             if result==1:
                 print("Player one wins!")
                 wins[0]+=1
@@ -132,11 +133,12 @@ while True:
                 wins[1]+=1
             
             print("Game results: ")
-            print("Player 1 - ",wins[0], "wins")
-            print("Player 2 - ",wins[1], "wins")
+            print("Player 1 -",wins[0], "wins")
+            print("Player 2 -",wins[1], "wins")
             cv2.destroyAllWindows()
 
             break
+
 
 
 
