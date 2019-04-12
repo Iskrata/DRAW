@@ -1,3 +1,4 @@
+
 from __future__ import print_function
 from collections import deque
 import numpy as np
@@ -6,6 +7,10 @@ import imutils
 import cv2
 import urllib
 import time
+
+
+
+    
 wins=[0,0]
 lower = {'blue':(97, 100, 117)} 
 upper = {'blue':(117,255,255)}
@@ -28,37 +33,8 @@ cam=cv2.VideoCapture(0)
 
     
 
-def finish(draw1,draw2):
-    
-    frame = np.zeros((800,800,3), np.uint8)
-    print("finish")
-    for i in range(2):
-        if i==0:
-            c='red'
-        elif i==1:
-            c='blue'
-        for item in draw_history[i]:
-            cv2.circle(frame, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 1, colors[c], 2)
 
-
-    cv2.putText(frame, "Please vote for the player who is closer ot rectanle's lines", second_player_side, font, fontScale, fontColor, lineType)
-    frame = cv2.flip(frame, 1)
-    cv2.rectangle(frame, (250,70), (550,250), (255,255,255), 5)
-    cv2.imshow('Finish', frame)
-    result=int(input("Your vote[1 or 2]: "))
     
-    if result==1:
-        cv2.destroyAllWindows()
-        print("Player one wins!")
-        wins[0]+=1
-    elif result==2:
-        cv2.destroyAllWindows()
-        print("Player two wins!")
-        wins[1]+=1
-    
-    print("Game results: ")
-    print("Player 1 - ",wins[0], "wins")
-    print("Player 2 - ",wins[1], "wins")
    
 while True:
     rval, frame = cam.read()
@@ -127,8 +103,39 @@ while True:
             pl=1
             print("Player 2")
         else:
+            
+            print("finish")
             cv2.destroyAllWindows()
-            finish(draw_history[0],draw_history[1])
+            img = np.zeros((800,800,3), np.uint8)
+            img = cv2.rectangle(img, (250,70), (550,250), (255,255,255),5)
+            for i in range(2):
+                if i==0:
+                    c='red'
+                elif i==1:
+                    c='blue'
+                for item in draw_history[i]:
+                    img = cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 1, colors[c], 2)
+
+            
+            img = cv2.flip(img, 1)
+            cv2.imshow('Results',img)
+            cv2.waitKey(0)
+            result=int(input("Your vote[1 or 2]: "))
+            #cv2.destroyAllWindows()
+           
+            print(result)
+            if result==1:
+                print("Player one wins!")
+                wins[0]+=1
+            elif result==2:
+                print("Player two wins!")
+                wins[1]+=1
+            
+            print("Game results: ")
+            print("Player 1 - ",wins[0], "wins")
+            print("Player 2 - ",wins[1], "wins")
+            cv2.destroyAllWindows()
+
             break
 
 
