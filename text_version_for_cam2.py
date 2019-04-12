@@ -29,6 +29,7 @@ cam=cv2.VideoCapture(0)
     
 
 def finish(draw1,draw2):
+    
     frame = np.zeros((800,800,3), np.uint8)
     print("finish")
     for i in range(2):
