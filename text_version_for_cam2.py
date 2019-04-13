@@ -59,10 +59,8 @@ while True:
             if radius > 25: 
                 number_dots += 1
                 draw_history[pl][number_dots] = x, y
-                print('x:', x, 'y:', y)
-                #ne raboti
-                print(((draw_history[pl][number_dots][0]<=555 and draw_history[pl][number_dots][0]>=545) or (draw_history[pl][number_dots][0]<=260 and draw_history[pl][number_dots][0]>=245)) and ((draw_history[pl][number_dots][1]<=255 and draw_history[pl][number_dots][1]>=240) or (draw_history[pl][number_dots][1]<=80 and draw_history[pl][number_dots][1]>=65)))
-                #    
+                #print('x:', x, 'y:', y)
+                   
 
 
                 
@@ -117,21 +115,34 @@ while True:
            
             for i in range(2):
                 for item in draw_history[i]:
-                   #print((draw_history[i][item][1]<=255 and draw_history[i][item][1]>=240) or (draw_history[i][item][1]<=80 and draw_history[i][item][1]>=65))
-                    
-                    #ne raboti proverkata
-                    if (draw_history[i][item][0]<=555 and draw_history[i][item][0]>=540) or (draw_history[i][item][0]<=260 and draw_history[i][item][0]>=245):
-                        if (draw_history[i][item][1]<=255 and draw_history[i][item][1]>=240) or (draw_history[i][item][1]<=80 and draw_history[i][item][1]>=65):
-                            #
+                    if draw_history[i][item][0]<=555 and draw_history[i][item][0]>=245:
+                        if draw_history[i][item][1]<=255 and draw_history[i][item][1]>=65:
+                            if draw_history[i][item][0]>=540 or draw_history[i][item][0]<=260:
+                                if draw_history[i][item][1]>=240 or draw_history[i][item][1]<=80:
+                                    print("bb")
                             
-                            if i==0:
+                                    if i==0:
+                                        
+                                        c="pink"
+                                        pp1+=1
+                                        cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
+                                    elif i==1:
+                                        c="purple"
+                                        pp2+=1
+                                        cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
+                                else:
+                                    if i==0:
+                                        c="red"
+                                    elif i==1:
+                                        c="blue"
+                                    cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
                                 
-                                c="pink"
-                                pp1+=1
-                                cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
-                            elif i==1:
-                                c="purple"
-                                pp2+=1
+
+                            else:
+                                if i==0:
+                                    c="red"
+                                elif i==1:
+                                    c="blue"
                                 cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
                         else:
                             if i==0:
@@ -139,15 +150,13 @@ while True:
                             elif i==1:
                                 c="blue"
                             cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
-                        
-
                     else:
                         if i==0:
                             c="red"
                         elif i==1:
                             c="blue"
                         cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
-                     
+                             
                         
             img = cv2.flip(img, 1)
             cv2.imshow('Results',img)
