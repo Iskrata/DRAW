@@ -115,54 +115,52 @@ while True:
            
             for i in range(2):
                 for item in draw_history[i]:
-                    if draw_history[i][item][0]<=555 and draw_history[i][item][0]>=245:
-                        if draw_history[i][item][1]<=255 and draw_history[i][item][1]>=65:
-                            if draw_history[i][item][0]>=540 or draw_history[i][item][0]<=260:
-                                if draw_history[i][item][1]>=240 or draw_history[i][item][1]<=80:
-                                    print("bb")
-                            
-                                    if i==0:
-                                        
-                                        c="pink"
-                                        pp1+=1
-                                        cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
-                                    elif i==1:
-                                        c="purple"
-                                        pp2+=1
-                                        cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
-                                else:
-                                    if i==0:
-                                        c="red"
-                                    elif i==1:
-                                        c="blue"
-                                    cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
+                    x=int(draw_history[i][item][0])
+                    y=int(draw_history[i][item][1])
+                    if x<560 and x>240:
+                        if y<260 and y>60:
+                            if x>535 or x<255 or y>235 or y<75:
                                 
-
+                            
+                                if i==0:
+                                        
+                                    c="pink"
+                                    pp1+=1
+                                    cv2.circle(img, (x, y), 3, colors[c], 6)
+                                elif i==1:
+                                    c="purple"
+                                    pp2+=1
+                                    cv2.circle(img, (x, y), 3, colors[c], 6)
                             else:
                                 if i==0:
                                     c="red"
                                 elif i==1:
                                     c="blue"
-                                cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
+                                cv2.circle(img, (x, y), 3, colors[c], 6)
+                                
+
                         else:
                             if i==0:
                                 c="red"
                             elif i==1:
                                 c="blue"
-                            cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
+                            cv2.circle(img, (x, y), 3, colors[c], 6)
                     else:
                         if i==0:
                             c="red"
                         elif i==1:
                             c="blue"
-                        cv2.circle(img, (int(draw_history[i][item][0]), int(draw_history[i][item][1])), 3, colors[c], 6)
+                        cv2.circle(img, (x, y), 3, colors[c], 6)
+              
                              
                         
             img = cv2.flip(img, 1)
             cv2.imshow('Results',img)
             cv2.waitKey(1)
-            time.sleep(9)
+            time.sleep(15)
             cv2.destroyAllWindows()
+            print("Player 1 has {} point".format(pp1))
+            print("Player 2 has {} point".format(pp2))
             if pp1>pp2:
                 print("Player one wins!")
                 wins[0]+=1
