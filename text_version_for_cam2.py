@@ -157,23 +157,27 @@ while True:
             img = cv2.flip(img, 1)
             cv2.imshow('Results',img)
             cv2.waitKey(1)
-            time.sleep(15)
-            cv2.destroyAllWindows()
             print("Player 1 has {} point".format(pp1))
             print("Player 2 has {} point".format(pp2))
+            img=cv2.putText(img, "Player 1 has {} point".format(pp1), second_player_side, font, fontScale, fontColor, lineType)
+            #cv2.putText(img, "Player 2 has {} point".format(pp2), second_player_side, font, fontScale, fontColor, lineType)
             if pp1>pp2:
                 print("Player one wins!")
+                #cv2.putText(img, "Player one wins!", second_player_side, font, fontScale, fontColor, lineType)
                 wins[0]+=1
             elif pp2>pp1:
                 print("Player two wins!")
+                #cv2.putText(img, "Player two wins!", second_player_side, font, fontScale, fontColor, lineType)
                 wins[1]+=1
             elif pp1==pp2:
                 print("Draw!")
+                #cv2.putText(img, "Draw!", second_player_side, font, fontScale, fontColor, lineType)
             
             print("Game results: ")
             print("Player 1 -",wins[0], "wins")
             print("Player 2 -",wins[1], "wins")
-            cv2.destroyAllWindows()
+           
+            #cv2.destroyAllWindows()
             break
 
 
