@@ -9,32 +9,36 @@ import time
 
 
 
-pp1=0
-pp2=0
+pp1 = 0
+pp2 = 0
 
-wins=[0,0]
+wins = [0, 0]
 lower = {'blue':(97, 100, 117)} 
-upper = {'blue':(117,255,255)}
-colors = {'blue':(255,0,0),
-          'red':(0,0,255),
-          'pink':(153,51,255),
-          'purple':(166,26,155)}
+upper = {'blue':(117, 255, 255)}
+colors = {'blue':(255, 0, 0),
+          'red':(0, 0, 255),
+          'pink':(153, 51, 255),
+          'purple':(166, 26, 155)}
 
 font = cv2.FONT_HERSHEY_SIMPLEX
-first_player_side = (350, 30)
-second_player_side = (70, 30)
+
+upper_right_corner = (350, 30)
+upper_left_corner = (10, 30)
+bottom_right_corner = (500, 450)
+
 centered_text = (200, 30)
 fontScale = 1
 fontColor = (255,255,255)
 lineType = 2
-pl=0
+pl = 0
 is_game_started = False
 print("Player 1")
 number_dots = 0
-draw_history=[{},{}]
-cam=cv2.VideoCapture(0)
+draw_history = [{}, {}]
+cam = cv2.VideoCapture(0)
 
 while True:
+
     rval, frame = cam.read()
     blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
@@ -77,9 +81,12 @@ while True:
 
     if not is_game_started:
         draw_history[pl]= {}
-        cv2.putText(frame, 'Type "s" to start the game', second_player_side, font, fontScale, fontColor, lineType)
+        cv2.putText(frame, 'Type "s" to start the game', upper_left_corner, font, fontScale, fontColor, lineType)
+    
     if is_game_started:
-        cv2.putText(frame, 'The game is started', second_player_side, font, fontScale, fontColor, lineType)
+        player_format_text = 'Player {}'.format(str(pl + 1))
+        cv2.putText(frame, 'The game is started' , upper_left_corner, font, fontScale, fontColor, lineType)
+        cv2.putText(frame, player_format_text , bottom_right_corner, font, fontScale, fontColor, lineType)
 
 
     keys_shortcut = cv2.waitKey(1) & 0xFF
@@ -102,9 +109,10 @@ while True:
         break
 
     if keys_shortcut == ord("n"):
-        if pl==0:
-            pl=1
+        if pl == 0:
+            pl = 1
             print("Player 2")
+
         else:
             
             print("finish")
@@ -115,8 +123,8 @@ while True:
            
             for i in range(2):
                 for item in draw_history[i]:
-                    x=int(draw_history[i][item][0])
-                    y=int(draw_history[i][item][1])
+                    x = int(draw_history[i][item][0])
+                    y = int(draw_history[i][item][1])
                     if x<560 and x>240:
                         if y<260 and y>60:
                             if x>535 or x<255 or y>235 or y<75:
@@ -161,19 +169,19 @@ while True:
             cv2.waitKey(1)
             print("Player 1 has {} point".format(pp1))
             print("Player 2 has {} point".format(pp2))
-            #cv2.putText(img, "Player 1 has {} point".format(pp1), second_player_side, font, fontScale, fontColor, lineType)
-            #cv2.putText(img, "Player 2 has {} point".format(pp2), second_player_side, font, fontScale, fontColor, lineType)
+            cv2.putText(img, "Player 1 has {} point".format(str(pp1)), upper_left_corner, font, fontScale, fontColor, lineType)
+            #cv2.putText(img, "Player 2 has {} point".format(pp2), upper_left_corner, font, fontScale, fontColor, lineType)
             if pp1>pp2:
                 print("Player one wins!")
-                #cv2.putText(img, "Player one wins!", second_player_side, font, fontScale, fontColor, lineType)
+                #cv2.putText(img, "Player one wins!", upper_left_corner, font, fontScale, fontColor, lineType)
                 wins[0]+=1
             elif pp2>pp1:
                 print("Player two wins!")
-                #cv2.putText(img, "Player two wins!", second_player_side, font, fontScale, fontColor, lineType)
+                #cv2.putText(img, "Player two wins!", upper_left_corner, font, fontScale, fontColor, lineType)
                 wins[1]+=1
             elif pp1==pp2:
                 print("Draw!")
-                #cv2.putText(img, "Draw!", second_player_side, font, fontScale, fontColor, lineType)
+                #cv2.putText(img, "Draw!", upper_left_corner, font, fontScale, fontColor, lineType)
 
            
             #cv2.destroyAllWindows()
