@@ -27,12 +27,17 @@ centered_text = (200, 30)
 fontScale = 1
 fontColor = (255,255,255)
 lineType = 2
-pl=0
+pl = 0
 is_game_started = False
 print("Player 1")
 number_dots = 0
-draw_history=[{},{}]
-cam=cv2.VideoCapture(0)
+draw_history = [{}, {}]
+cam = cv2.VideoCapture(0)
+
+def swith_player():
+    ppl += 1
+    if ppl > 1:
+        ppl = 0
 
 while True:
     rval, frame = cam.read()
@@ -48,7 +53,6 @@ while True:
         cv2.CHAIN_APPROX_SIMPLE)[-2]
         center = None
 
-         
         if len(cnts) > 0:
             c = max(cnts, key=cv2.contourArea)
             ((x, y), radius) = cv2.minEnclosingCircle(c)
@@ -102,9 +106,9 @@ while True:
         break
 
     if keys_shortcut == ord("n"):
-        if pl==0:
-            pl=1
-            print("Player 2")
+        swith_player()
+        print("Player 2")
+
         else:
             
             print("finish")
