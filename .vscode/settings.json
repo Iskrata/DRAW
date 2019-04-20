@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "D:\\Python\\Python37-32\\python.exe"
+    "python.pythonPath": "D:\\Python\\Python37-32\\python.exe",
+    "python.linting.enabled": false,
+    "cSpell.enabled": false
 }

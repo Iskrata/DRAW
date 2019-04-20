@@ -21,15 +21,15 @@ colors = {'blue':(255, 0, 0),
           'pink':(153, 51, 255),
           'purple':(166, 26, 155)}
 
-font = cv2.FONT_HERSHEY_SIMPLEX
+font = cv2.FONT_HERSHEY_COMPLEX 
 
 upper_right_corner = (350, 30)
 upper_left_corner = (10, 30)
-bottom_right_corner = (500, 450)
+bottom_right_corner = (470, 450)
 
 centered_text = (200, 30)
 fontScale = 1
-fontColor = (255,255,255)
+fontColor = (191, 0, 128)
 lineType = 2
 pl = 0
 
@@ -111,9 +111,9 @@ while True:
             for item in draw_history[i]:
                 x = int(draw_history[i][item][0])
                 y = int(draw_history[i][item][1])
-                if x<560 and x>240:
-                    if y<260 and y>60:
-                        if x>535 or x<255 or y>235 or y<75:
+                if x < 560 and x>240:
+                    if y < 260 and y > 60:
+                        if x > 535 or x < 255 or y > 235 or y < 75:
                             
                         
                             if i==0:
@@ -183,15 +183,14 @@ while True:
         is_game_started = True
 
     if keys_shortcut == ord("n"):
-        if pl == 0:
-            pl = 1
-            print("Player 2")
-
-        # elif is_game_ended == True:
-        #    is_break_pressed = True
-        else:
-            is_game_ended = True
-            
+        if is_game_started:
+            if pl == 0:
+                pl = 1
+                print("Player 2")
+                
+            else:
+                is_game_ended = True
+                
     if keys_shortcut == ord("r"):
         draw_history[pl]={}
 
