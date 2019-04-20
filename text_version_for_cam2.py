@@ -115,37 +115,37 @@ while True:
                     if y < 260 and y > 60:
                         if x > 535 or x < 255 or y > 235 or y < 75:
                             
-                        
-                            if i==0:
-                                    
-                                c="pink"
-                                pp1+=1
+                            if i == 0:    
+                                c = "pink"
+                                pp1 += 1
                                 cv2.circle(img, (x, y), 3, colors[c], 6)
                                 
-                            elif i==1:
-                                c="purple"
-                                pp2+=1
+                            elif i == 1:
+                                c = "purple"
+                                pp2 += 1
                                 cv2.circle(img, (x, y), 3, colors[c], 6)
                                 
                         else:
-                            if i==0:
+                            if i == 0:
                                 c="red"
-                            elif i==1:
-                                c="blue"
+
+                            elif i == 1:
+                                c = "blue"
                             cv2.circle(img, (x, y), 3, colors[c], 6)
-                            
 
                     else:
-                        if i==0:
-                            c="red"
-                        elif i==1:
-                            c="blue"
+                        if i == 0:
+                            c = "red"
+                            
+                        elif i == 1:
+                            c = "blue"
                         cv2.circle(img, (x, y), 3, colors[c], 6)
                 else:
-                    if i==0:
-                        c="red"
-                    elif i==1:
-                        c="blue"
+                    if i == 0:
+                        c = "red"
+
+                    elif i == 1:
+                        c = "blue"
                     cv2.circle(img, (x, y), 3, colors[c], 6)
             
                             
