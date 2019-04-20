@@ -7,8 +7,6 @@ import cv2
 import urllib
 import time
 
-
-
 pp1 = 0
 pp2 = 0
 
@@ -68,10 +66,6 @@ while True:
             if radius > 25: 
                 number_dots += 1
                 draw_history[pl][number_dots] = x, y
-                #print('x:', x, 'y:', y)
-                   
-
-
                 
     cv2.rectangle(frame, (250,70), (550,250), (255,255,255), 5)
     
@@ -112,7 +106,9 @@ while True:
                 x = int(draw_history[i][item][0])
                 y = int(draw_history[i][item][1])
                 if x < 560 and x>240:
+
                     if y < 260 and y > 60:
+                        
                         if x > 535 or x < 255 or y > 235 or y < 75:
                             
                             if i == 0:    
@@ -136,7 +132,7 @@ while True:
                     else:
                         if i == 0:
                             c = "red"
-                            
+
                         elif i == 1:
                             c = "blue"
                         cv2.circle(img, (x, y), 3, colors[c], 6)
@@ -156,21 +152,18 @@ while True:
         print("Player 1 has {} point".format(pp1))
         print("Player 2 has {} point".format(pp2))
         cv2.putText(img, "Player 1 has {} point".format(str(pp1)), upper_left_corner, font, fontScale, fontColor, lineType)
-        #cv2.putText(img, "Player 2 has {} point".format(pp2), upper_left_corner, font, fontScale, fontColor, lineType)
+
         if pp1>pp2:
             print("Player one wins!")
-            #cv2.putText(img, "Player one wins!", upper_left_corner, font, fontScale, fontColor, lineType)
             wins[0]+=1
+
         elif pp2>pp1:
             print("Player two wins!")
-            #cv2.putText(img, "Player two wins!", upper_left_corner, font, fontScale, fontColor, lineType)
-            wins[1]+=1
+            wins[1] += 1
+
         elif pp1==pp2:
             print("Draw!")
-            #cv2.putText(img, "Draw!", upper_left_corner, font, fontScale, fontColor, lineType)
-
         
-        #cv2.destroyAllWindows()
         while not is_break_pressed:
             keys_shortcut = cv2.waitKey(1) & 0xFF
             if keys_shortcut == ord('q'):
@@ -194,8 +187,6 @@ while True:
     if keys_shortcut == ord("r"):
         draw_history[pl]={}
 
-    if cv2.waitKey(1) == 27:
+    if cv2.waitKey(1) == 27 or keys_shortcut == ord('q'):
         is_break_pressed = True
 
-    if keys_shortcut == ord('q'):
-        is_break_pressed = True
