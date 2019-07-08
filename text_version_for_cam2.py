@@ -172,7 +172,7 @@ while True:
 
     keys_shortcut = cv2.waitKey(1) & 0xFF
 
-    if keys_shortcut == 27:
+    if keys_shortcut == ord("n"):
         if is_game_started:
             if pl == 0:
                 pl = 1
@@ -182,7 +182,7 @@ while True:
                 is_game_ended = True
      
 
-    if keys_shortcut == 27:
+    if keys_shortcut == ord("s"):
         is_game_started = True           
     if keys_shortcut == ord("r"):
         draw_history[pl]={}
