@@ -172,10 +172,7 @@ while True:
 
     keys_shortcut = cv2.waitKey(1) & 0xFF
 
-    if keys_shortcut == ord("s"):
-        is_game_started = True
-
-    if keys_shortcut == ord("n"):
+    if keys_shortcut == 27:
         if is_game_started:
             if pl == 0:
                 pl = 1
@@ -183,10 +180,13 @@ while True:
                 
             else:
                 is_game_ended = True
-                
+     
+
+    if keys_shortcut == 27:
+        is_game_started = True           
     if keys_shortcut == ord("r"):
         draw_history[pl]={}
 
-    if cv2.waitKey(1) == 27 or keys_shortcut == ord('q'):
-        is_break_pressed = True
+    #if cv2.waitKey(1) == 27 or keys_shortcut == ord('q'):
+       # is_break_pressed = True
 
